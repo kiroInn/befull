@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 export default {
-  queryFoods() {
+  queryOrders() {
     return axios.get('/api/food-proposals');
   },
-  addCart(foodId) {
-    return axios.post('/api/cart', { foodId });
+  payment(oid) {
+    return axios.post('/api/cart', { foodId: oid });
   },
 };

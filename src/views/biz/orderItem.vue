@@ -4,9 +4,8 @@
     <img v-if="index % 2 === 1" src="../../assets/food02.png" alt="" />
     <div class="info">
       <div class="name">{{ data.name }}</div>
-      <div class="score">{{ data.score }}分</div>
       <div class="price">{{ data.price }}元</div>
-      <div class="buy" v-on:click="addCart(data.id)">加入购物车</div>
+      <div class="buy" v-on:click="payment(data.id)">支付购买</div>
     </div>
   </div>
 </template>
@@ -25,8 +24,8 @@ export default Vue.extend({
   computed: {},
   created() {},
   methods: {
-    addCart(foodId) {
-      this.$emit('addCart', foodId);
+    payment(foodId) {
+      this.$emit('payment', foodId);
     },
   },
 });
@@ -49,8 +48,12 @@ export default Vue.extend({
 }
 .info .name {
   color: #000;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
+}
+.name span {
+  font-size: 1rem;
+  color: #000;
 }
 .info .score {
   color: gray;

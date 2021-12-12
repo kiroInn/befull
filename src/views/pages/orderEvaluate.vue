@@ -34,21 +34,21 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import _ from "lodash";
-import orderService, { EVALUATE_STATUS } from "../../services/order";
+import Vue from 'vue';
+import _ from 'lodash';
+import orderService, { EVALUATE_STATUS } from '../../services/order';
 
 export default Vue.extend({
   data() {
     return {
       oid: 888999001,
       merchant: {
-        content: "",
+        content: '',
       },
       delivery: {
-        content: "",
+        content: '',
       },
-      opResult: "",
+      opResult: '',
     };
   },
   computed: {},
@@ -57,33 +57,33 @@ export default Vue.extend({
     async evaluate(data) {
       const result = await orderService.evaluate(this.oid, {
         merchant: {
-          content: this.merchant.content || _.get(data, "merchant.content"),
+          content: this.merchant.content || _.get(data, 'merchant.content'),
         },
         delivery: {
-          content: this.delivery.content || _.get(data, "delivery.content"),
+          content: this.delivery.content || _.get(data, 'delivery.content'),
         },
       });
       if (result === EVALUATE_STATUS.success) {
-        this.opResult = "评价成功";
+        this.opResult = '评价成功';
       }
       if (result === EVALUATE_STATUS.invalid) {
-        this.opResult = "订单不存在";
+        this.opResult = '订单不存在';
       }
       if (result === EVALUATE_STATUS.unavailable) {
-        this.opResult = "评价已提交，请稍后查看评价结果。";
+        this.opResult = '评价已提交，请稍后查看评价结果。';
 
         this.retry();
       }
     },
     retry() {
-      const data = JSON.parse(localStorage.getItem("evaluate"));
+      const data = JSON.parse(localStorage.getItem('evaluate'));
       setTimeout(() => {
         this.evaluate(data);
       }, 10000);
     },
     storageEvaluate() {
       localStorage.setItem(
-        "evaluate",
+        'evaluate',
         JSON.stringify({
           merchant: {
             content: this.merchant.content,

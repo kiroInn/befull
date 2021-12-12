@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import _ from 'lodash';
+// import _ from 'lodash';
 import orderApi from '../../api/order';
 import orderService, { EVALUATE_STATUS } from '../order';
 
@@ -11,7 +11,6 @@ afterEach(() => {
   evaluateStub.restore();
 });
 it('should return success when evaluate order success', async done => {
-
   evaluateStub.returns(
     Promise.resolve({
       data: 'success',

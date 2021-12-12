@@ -7,60 +7,61 @@
     >
       {{ opResult }}
     </div>
-    <div v-if="foods.length > 0" data-testid="food-list">
-      <food-item
-        v-for="(food, index) in foods"
+    <div v-if="orders.length > 0" data-testid="order-list">
+      <order-item
+        v-for="(food, index) in orders"
         :key="food.id"
         :index="index"
         :data="food"
-        v-on:addCart="handleAddCart"
-      ></food-item>
+        v-on:payment="handlePayment"
+      ></order-item>
     </div>
-    <div v-else data-testid="no-foods">
-      {{ tips || `暂未查询到餐品数据` }}
+    <div v-else data-testid="no-orders">
+      {{ tips || `暂未查询到订单数据` }}
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import foodsService, { ADD_CART_STATUS } from '../../services/foods';
-import FoodItem from '../biz/foodItem.vue';
+import orderService, { PAYMENT_STATUS } from '../../services/order';
+import OrderItem from '../biz/orderItem.vue';
 export default Vue.extend({
   components: {
-    FoodItem,
+    OrderItem,
   },
   data() {
     return {
-      foods: [],
+      orders: [],
       tips: '',
       opResult: '',
     };
   },
   computed: {},
   created() {
-    this.queryFoods();
+    this.queryOrders();
   },
   methods: {
-    async queryFoods() {
+    async queryOrders() {
       try {
-        const foods = await foodsService.getFoods();
-        this.foods = foods;
+        const orders = await orderService.getOrders();
+        this.orders = orders;
       } catch (err) {
         this.tips = `好像出错了，请稍后再试`;
       }
     },
-    async handleAddCart(foodId) {
-      const result = await foodsService.addCart(foodId);
-      if (result === ADD_CART_STATUS.success) {
+    async handlePayment(oid) {
+      const result = await orderService.payment(oid);
+      if (result === PAYMENT_STATUS.success) {
         this.opResult = '操作成功';
       }
-      if (result === ADD_CART_STATUS.invalid) {
-        this.opResult = '操作失败，当前餐品失效';
+      if (result === PAYMENT_STATUS.invalid) {
+        this.opResult = '操作失败，当前订单失效';
       }
-      if (result === ADD_CART_STATUS.unavailable) {
+      if (result === PAYMENT_STATUS.unavailable) {
         this.opResult = '操作失败，请重试';
       }
+
       setTimeout(() => {
         this.opResult = '';
       }, 3000);

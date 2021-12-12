@@ -1,24 +1,26 @@
 module.exports = () => {
   const names = [
-    '必胜客急宅送',
-    '一点点（小寨店）',
-    '饭爵大碗便当',
-    '港式滑蛋饭',
+    '必胜客急宅送订单',
+    '一点点（小寨店）订单',
+    '饭爵大碗便当订单',
+    '港式滑蛋饭订单',
   ];
-  const foods = [];
+  const orders = [];
   for (let index = 0; index < 8; index++) {
     const idx = Math.floor(Math.random() * names.length);
-    foods.push({
-      id: `food-${index + 1}`,
+    orders.push({
+      id: `order-${index + 1}`,
       name: names[idx],
       price: '18.99',
-      score: Math.random() * 10 + 1,
     });
   }
 
+
   return {
-    'food-proposals': foods,
+    'order-proposals': orders,
     cart: { data: 'success' },
     evaluation: { data: 'success' },
+    default: { data: 'success' },
+    "profile": { "name": "typicode" },
   };
 };

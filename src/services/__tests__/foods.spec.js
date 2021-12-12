@@ -1,62 +1,62 @@
 import sinon from 'sinon';
 import _ from 'lodash';
-import foodApi from '../../api/foods';
-import foodService, { ADD_CART_STATUS } from '../foods';
+import orderApi from '../../api/order';
+import orderService, { PAYMENT_STATUS } from '../order';
 
-let queryFoodsStub;
-let addCartStub;
+let queryOrdersStub;
+let paymentStub;
 
 afterEach(() => {
-  queryFoodsStub.restore();
+  queryOrdersStub.restore();
 });
 
 it('should transform response score filed data', async done => {
-  queryFoodsStub = sinon.stub(foodApi, 'queryFoods');
+  queryOrdersStub = sinon.stub(orderApi, 'queryOrders');
 
-  queryFoodsStub.returns(
+  queryOrdersStub.returns(
     Promise.resolve({
       data: _.map(Array(1), (value, index) => ({
         id: `food-${index}`,
-        name: '饭爵大碗便当',
+        name: '饭爵大碗便当订单',
         price: '18.99',
         score: '16.11111',
       })),
     })
   );
-  const foods = await foodService.getFoods();
-  expect(foods[0].score).toEqual('16.11');
+  const orders = await orderService.getOrders();
+  expect(orders[0].score).toEqual('16.11');
   done();
 });
 
-it('should return success when add cart success', async done => {
-  addCartStub = sinon.stub(foodApi, 'addCart');
+it('should return success when payment success', async done => {
+  paymentStub = sinon.stub(orderApi, 'payment');
 
-  addCartStub.returns(
+  paymentStub.returns(
     Promise.resolve({
       data: 'success',
     })
   );
-  const result = await foodService.addCart(1);
-  expect(result).toEqual(ADD_CART_STATUS.success);
+  const result = await orderService.payment(1);
+  expect(result).toEqual(PAYMENT_STATUS.success);
   done();
 });
 
 it('should return invalid when addCart foodId is invalid', async done => {
-  addCartStub.returns(
+  paymentStub.returns(
     Promise.resolve({ error: { code: 1001, message: 'fid is invalid' } })
   );
-  const result = await foodService.addCart('not correct id');
-  expect(result).toEqual(ADD_CART_STATUS.invalid);
+  const result = await orderService.payment('not correct id');
+  expect(result).toEqual(PAYMENT_STATUS.invalid);
   done();
 });
 
 it('should return unavailable when server is err', async done => {
-  addCartStub.returns(
+  paymentStub.returns(
     Promise.resolve({
       error: { code: 1002, message: 'service unavailable, please retry later' },
     })
   );
-  const result = await foodService.addCart(1);
-  expect(result).toEqual(ADD_CART_STATUS.unavailable);
+  const result = await orderService.payment(1);
+  expect(result).toEqual(PAYMENT_STATUS.unavailable);
   done();
 });

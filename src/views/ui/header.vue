@@ -1,6 +1,6 @@
 <template>
   <header>
-    <router-link :to="{ path: '/order-food' }">订餐列表</router-link>
+    <router-link :to="{ path: '/order-food' }">订单列表</router-link>
     <router-link :to="{ path: '/order-evaluate' }">订单评价</router-link>
 
     <a>要吃饱</a>
