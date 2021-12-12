@@ -9,7 +9,7 @@ npm install
 ### Compiles and hot-reloads for development
 
 ```
-npm run fake-bff  ## 修改 db.js 后需要重启
+npm run fake-bff  ## 修改 db.js
 npm run start
 ```
 

@@ -1,16 +1,15 @@
 <template>
   <div id="app">
-     <headers>
-    </headers>
+    <headers> </headers>
     <router-view></router-view>
   </div>
 </template>
 <script lang="ts">
-import Vue from "vue";
-import headers from './views/ui/header.vue'
+import Vue from 'vue';
+import headers from './views/ui/header.vue';
 export default Vue.extend({
-  components:{
-    headers
+  components: {
+    headers,
   },
   data() {
     return {};

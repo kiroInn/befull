@@ -7,7 +7,7 @@
     "fake-bff": "json-server --watch db.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "vue-cli-service test:unit",
+    "test": "vue-cli-service test:unit --watch",
     "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {

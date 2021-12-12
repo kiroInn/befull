@@ -1,23 +1,22 @@
-<template >
+<template>
   <div class="food">
     <img v-if="index % 2 === 0" src="../../assets/food01.png" alt="" />
     <img v-if="index % 2 === 1" src="../../assets/food02.png" alt="" />
     <div class="info">
-      <div class="name">{{data.name}}</div>
-      <div class="score">{{data.score}}分</div>
-      <div class="price">{{data.price}}元</div>
-      <div class="buy">去结算</div>
+      <div class="name">{{ data.name }}</div>
+      <div class="score">{{ data.score }}分</div>
+      <div class="price">{{ data.price }}元</div>
+      <div class="buy" v-on:click="addCart(data.id)">加入购物车</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 export default Vue.extend({
   props: {
     id: Number,
     index: Number,
-    title: String,
     data: Object,
   },
   data() {
@@ -25,6 +24,11 @@ export default Vue.extend({
   },
   computed: {},
   created() {},
+  methods: {
+    addCart(foodId) {
+      this.$emit('addCart', foodId);
+    },
+  },
 });
 </script>
 
@@ -61,6 +65,7 @@ export default Vue.extend({
   background-color: #f85635;
   border-radius: 4px;
   text-align: center;
+  cursor: pointer;
 }
 .food img {
   width: 8rem;

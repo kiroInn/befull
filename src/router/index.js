@@ -1,13 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Foods from '../views/pages/foods';
+import { orderFood } from './order-food';
 
 Vue.use(VueRouter);
 
-export const routes = [
-  { path: '/', redirect: '' },
-  { path: '/foods', component: Foods },
-];
+export const routes = [{ path: '/', redirect: 'order-food' }, ...orderFood];
 
 const router = new VueRouter({
   mode: 'history',
