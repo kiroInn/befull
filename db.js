@@ -18,9 +18,6 @@ module.exports = () => {
 
   return {
     'order-proposals': orders,
-    cart: { data: 'success' },
-    evaluation: { data: 'success' },
-    default: { data: 'success' },
-    "profile": { "name": "typicode" },
+    default: { data: 'success' }
   };
 };

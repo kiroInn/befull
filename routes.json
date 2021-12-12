@@ -1,3 +1,4 @@
 {
+    "/order-food/proposals": "/order-proposals",
     "/order-food/*": "/default"
 }
