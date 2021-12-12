@@ -9,11 +9,16 @@ module.exports = () => {
   for (let index = 0; index < 8; index++) {
     const idx = Math.floor(Math.random() * names.length);
     orders.push({
-      id: `order-${index + 1}`,
+      id: `order-8888${index + 1}`,
       name: names[idx],
       price: '18.99',
     });
   }
+  orders.push({
+    id: `order-000`,
+    name: '无效订单',
+    price: '99.99',
+  });
 
 
   return {

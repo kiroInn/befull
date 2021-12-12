@@ -41,7 +41,7 @@ import orderService, { EVALUATE_STATUS } from '../../services/order';
 export default Vue.extend({
   data() {
     return {
-      oid: 888999001,
+      oid: 'order-88881',
       merchant: {
         content: '',
       },
